@@ -36,3 +36,4 @@
     src: https://github.com/AnalogJ/scrutiny/releases/download/0.2.4/scrutiny-web-frontend.tar.gz
     dest: /etc/scrutiny/web
     remote_src: yes
+    extra_opts: "--strip-components=1"
