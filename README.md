@@ -9,3 +9,6 @@ Experimental - Sets up an installation of scrutiny
 
 * Do an Ansible run
 `ansible-playbook site.yml -i inventory`
+
+## TODO
+This should NOT be running as root.
