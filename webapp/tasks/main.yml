@@ -1,6 +1,23 @@
 ---
 # Name: Install and configure the webapp
 
-- name: Initial debug testing
-  debug:
-    msg: "System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}"
+# Dependencies
+- name: Software - Install dependencies
+  apt: name=libc6 state=present
+
+# Directory structure
+- name: Files - Create a directory to hold Scrutiny-related stuff
+  file: path=/etc/scrutiny state=directory
+
+- name: Files - Create a configuration directory
+  file: path=/etc/scrutiny/config state=directory
+
+- name: Files - Create a directory to store the webapp
+  file: path=/etc/scrutiny/web state=directory
+
+- name: Files - Create a directory to store binaries
+  file: path=/etc/scrutiny/bin state=directory
+
+# Configuration
+- name: Configuration - configure scrutiny
+  template: src=scrutiny.yaml.j2 dest=/etc/scrutiny/config/scrutiny.yaml mode=0644
