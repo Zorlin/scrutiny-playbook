@@ -1,6 +1,32 @@
 ---
 # Name: Install and configure the collector
 
-- name: Initial debug testing
-  debug:
-    msg: "System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}"
+# Dependencies
+- name: Software - Install dependencies
+  apt:
+    name:
+      - smartmontools
+      - cron
+
+# Directory structure
+- name: Files - Create a directory to hold Scrutiny-related stuff
+  file: path=/etc/scrutiny state=directory
+
+- name: Files - Create a directory to store binaries
+  file: path=/etc/scrutiny/bin state=directory
+
+# Binary
+- name: Binary - Install the collector binary
+  get_url:
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.2.4/scrutiny-collector-metrics-linux-amd64
+    dest: /etc/scrutiny/bin/scrutiny-collector-metrics-linux-amd64
+    checksum: sha256:034c905d18bd8aeab559fe6a680571f6d0856a7b49517f43863f91bba11df9f2
+    mode: '0755'
+
+# Cron
+- name: Cron - Create a root crontab entry to run the collector periodically
+  cron:
+    name: "Scrutiny - Run the Collector"
+    minute: "*/15"
+    job: /etc/scrutiny/bin/scrutiny-collector-metrics-linux-amd64 run --api-endpoint "http://localhost:8080"
+    user: root
