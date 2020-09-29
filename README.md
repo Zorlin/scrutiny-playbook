@@ -25,5 +25,3 @@ CentOS support coming soon maybe.
 * This should NOT be running as root.
 
 * Should validate frontend tarball checksum
-
-* Add a variable to collector role for setting target server
