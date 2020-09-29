@@ -1,0 +1,6 @@
+---
+# Name: Install and configure the webapp
+
+- name: Initial debug testing
+  debug:
+    msg: "System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}"

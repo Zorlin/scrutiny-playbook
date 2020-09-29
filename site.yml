@@ -1,0 +1,20 @@
+---
+# file: site.yml
+
+# This playbook attempts to configure and setup Scrutiny
+# Put your webapp host in [webapp]
+# and your collector hosts in [collector]
+
+- hosts: webapp
+  remote_user: root
+  become: yes
+
+  roles:
+  - webapp
+
+- hosts: collector
+  remote_user: root
+  become: yes
+
+  roles:
+  - collector
