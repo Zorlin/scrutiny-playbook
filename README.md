@@ -11,4 +11,6 @@ Experimental - Sets up an installation of scrutiny
 `ansible-playbook site.yml -i inventory`
 
 ## TODO
-This should NOT be running as root.
+* This should NOT be running as root.
+
+* Should validate frontend tarball checksum

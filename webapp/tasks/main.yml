@@ -21,3 +21,18 @@
 # Configuration
 - name: Configuration - configure scrutiny
   template: src=scrutiny.yaml.j2 dest=/etc/scrutiny/config/scrutiny.yaml mode=0644
+
+# Binary
+- name: Binary - Install the webapp binary
+  get_url:
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.2.4/scrutiny-web-linux-amd64
+    dest: /etc/scrutiny/bin/scrutiny-web-linux-amd64
+    checksum: sha256:f168c8867cb8012cd5591e969f65d416fd7981060ea605510a9a3844d71ff999
+    mode: '0755'
+
+# Frontend
+- name: Frontend - Download and install the frontend files
+  unarchive:
+    src: https://github.com/AnalogJ/scrutiny/releases/download/0.2.4/scrutiny-web-frontend.tar.gz
+    dest: /etc/scrutiny/web
+    remote_src: yes
