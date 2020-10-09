@@ -32,12 +32,15 @@ You can get the collector working on CentOS 8 by setting up GetPageSpeed Extras 
 
 ## Getting Started
 * Clone this repository somewhere handy
+
 `git clone https://github.com/Zorlin/scrutiny-playbook.git`
 
 * Generate an SSH key if you don't already have one
+
 `ssh-keygen`
 
 * Copy your key to user "root" on all the boxes you want to manage (replace localhost with the machine you want)
+
 `ssh-copy-id root@localhost`
 
 * If you want a hub-and-spoke deployment, edit the inventory file. 
@@ -58,9 +61,11 @@ You can get the collector working on CentOS 8 by setting up GetPageSpeed Extras 
   Open up group_vars/collector and set "webapp_server" as appropriate.
 
 * Do an Ansible run 
+
 `ansible-playbook site.yml -i inventory`
 
 Once you're up and running, go to your webapp machine, run screen, then run the Scrutiny webapp with the following command.
+
 `/opt/scrutiny/bin/scrutiny-web-linux start --config /opt/scrutiny/config/scrutiny.yaml`
 
 You can then hold Ctrl and hit the letter A then the letter D to detach from the session and leave the webapp running.
