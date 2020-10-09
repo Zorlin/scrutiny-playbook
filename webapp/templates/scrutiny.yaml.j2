@@ -1,12 +1,12 @@
 # {{ ansible_managed }}
-# stored in /etc/scrutiny/config/scrutiny.yaml
+# stored in /opt/scrutiny/config/scrutiny.yaml
 version: 1
 web:
   database:
     # The Scrutiny webapp will create a database for you, however the parent directory must exist.
-    location: /etc/scrutiny/config/scrutiny.db
+    location: /opt/scrutiny/config/scrutiny.db
   src:
     frontend:
       # The path to the Scrutiny frontend files (js, css, images) must be specified.
       # We'll populate it with files in the next section
-      path: /etc/scrutiny/web
+      path: /opt/scrutiny/web
