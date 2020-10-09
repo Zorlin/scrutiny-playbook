@@ -22,7 +22,7 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
 - name: Software- Enable backports repository (for Debian 9)
-  apt_repository
+  apt_repository:
     repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
     state: present
     update_cache: yes
