@@ -6,6 +6,14 @@
     name: cron
     state: present
 
+- name: Software - Enable backports repository (for Debian 10)
+  apt_repository:
+    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
+    state: present
+    filename: backports
+    update_cache: yes
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '10'
+
 - name: Software - Install dependencies (for Ubuntu 20.04 / Debian 10 or above)
   apt:
     name: smartmontools
@@ -20,11 +28,3 @@
     state: present
     default_release: bionic-backports
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
-
-- name: Software- Enable backports repository (for Debian 9)
-  apt_repository:
-    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
-    state: present
-    filename: backports
-    update_cache: yes
-  when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '9'
