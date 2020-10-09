@@ -6,9 +6,21 @@
     name: cron
     state: present
 
-- name: Software - Install dependencies (for CentOS 8 or above)
-  apt:
-    name: smartmontools
+- name: Software - Install the GetPageSpeed Extras repository (CentOS 8)
+  yum:
+    name: https://extras.getpagespeed.com/release-el8-latest.rpm
     state: present
   when:
     - ansible_distribution == 'CentOS' and ansible_distribution_version|int >= 8
+
+- name: Software - Install the GetPageSpeed Extras repository (CentOS 7)
+  yum:
+    name: https://extras.getpagespeed.com/release-el7-latest.rpm
+    state: present
+  when:
+    - ansible_distribution == 'CentOS' and ansible_distribution_version|int >= 7
+
+- name: Software - Install dependencies
+  yum:
+    name: smartmontools
+    state: present
