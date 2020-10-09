@@ -20,3 +20,9 @@
     state: present
     default_release: bionic-backports
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+- name: Software- Enable backports repository (for Debian 9)
+  apt_repository
+    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
+    state: present
+  when: ansible_distribution == 'Debian' and ansible_distribution_version == '9'
