@@ -12,7 +12,7 @@
     state: present
   when:
     - ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
-      or ansible_distribution == 'Debian' and ansible_distribution_version|int >= 10
+      or ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= 10
 
 - name: Software - Install dependencies (for Ubuntu 18.04)
   apt:
@@ -26,4 +26,4 @@
     repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
     state: present
     update_cache: yes
-  when: ansible_distribution == 'Debian' and ansible_distribution_version == '9'
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '9'
