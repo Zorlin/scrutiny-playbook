@@ -25,4 +25,5 @@
   apt_repository
     repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
     state: present
+    update_cache: yes
   when: ansible_distribution == 'Debian' and ansible_distribution_version == '9'
