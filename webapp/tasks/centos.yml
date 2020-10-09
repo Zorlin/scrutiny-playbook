@@ -1,0 +1,5 @@
+---
+# Name: Install dependencies for CentOS
+
+- name: Software - Install dependencies
+  yum: name=libc6 state=present

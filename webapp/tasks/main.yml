@@ -2,8 +2,12 @@
 # Name: Install and configure the webapp
 
 # Dependencies
-- name: Software - Install dependencies
-  apt: name=libc6 state=present
+# Debian and Ubuntu are the same for this role.
+- include_tasks: debian.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- include_tasks: centos.yml
+  when: ansible_distribution == 'CentOS'
 
 # Directory structure
 - name: Files - Create a directory to hold Scrutiny-related stuff
