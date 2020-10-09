@@ -6,21 +6,13 @@
     name: crontabs
     state: present
 
-- name: Software - Install the GetPageSpeed Extras repository (CentOS 8)
-  yum:
-    name: https://extras.getpagespeed.com/release-el8-latest.rpm
-    state: present
-  when:
-    - ansible_distribution == 'CentOS' and ansible_distribution_version|int >= 8
+- name: Software - Install dependencies (CentOS 8+)
+  debug:
+    msg: "CentOS 8+ not yet supported by the collector"
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version|int >= 8'
 
-- name: Software - Install the GetPageSpeed Extras repository (CentOS 7)
-  yum:
-    name: https://extras.getpagespeed.com/release-el7-latest.rpm
-    state: present
-  when:
-    - ansible_distribution == 'CentOS' and ansible_distribution_version|int >= 7
-
-- name: Software - Install dependencies
+- name: Software - Install dependencies (CentOS 7)
   yum:
     name: smartmontools
     state: present
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '7'
