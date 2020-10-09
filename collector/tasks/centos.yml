@@ -1,0 +1,14 @@
+---
+# Name: Install and configure the collector's dependencies
+
+- name: Software - Install dependencies (base)
+  yum:
+    name: cron
+    state: present
+
+- name: Software - Install dependencies (for CentOS 8 or above)
+  apt:
+    name: smartmontools
+    state: present
+  when:
+    - ansible_distribution == 'CentOS' and ansible_distribution_version|int >= 8
