@@ -57,7 +57,7 @@ You can get the collector working on CentOS 8 by setting up GetPageSpeed Extras 
 10.1.1.204
 ```
 
-* If you want a hub-and-spoke deployment, you will also need to edit the address collectors send their data.
+* If you want a hub-and-spoke deployment, you will also need to edit the address that collectors will send their data to.
   Open up group_vars/collector and set "webapp_server" as appropriate.
 
 * Do an Ansible run 
