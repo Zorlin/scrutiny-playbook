@@ -3,5 +3,5 @@
 # file: group_vars/collector
 
 # Define which webapp server to point the collectors at
-webapp_server: 10.1.1.204
+webapp_server: localhost
 # Future idea - {{ groups['webapp'][0] }}
