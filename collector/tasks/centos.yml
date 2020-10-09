@@ -3,7 +3,7 @@
 
 - name: Software - Install dependencies (base)
   yum:
-    name: cron
+    name: crontabs
     state: present
 
 - name: Software - Install the GetPageSpeed Extras repository (CentOS 8)
