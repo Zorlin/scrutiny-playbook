@@ -81,6 +81,6 @@ You can then hold Ctrl and hit the letter A then the letter D to detach from the
 
 `awx project create --name scrutiny-playbook --scm_type="git" --scm_url="https://github.com/getglass/scrutiny-playbook.git" --scm_branch=main --description="GetGlass - Automatically stand up a Scrutiny installation"`
 
-`awx job_templates create --name "scrutiny-playbook run" --project 9 --playbook "site.yml" --ask_inventory_on_launch true`
+`GLASS_PROJECTID=$(awx project list --name scrutiny-playbook --format json | jq .results[0].id)`
 
-(Note that for now you will need to manually change "--project 9" to match the project name of the project you are creating)
+`awx job_templates create --name "scrutiny-playbook run" --project $GLASS_PROJECTID --playbook "site.yml" --ask_inventory_on_launch true`
