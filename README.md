@@ -72,3 +72,8 @@ You can then hold Ctrl and hit the letter A then the letter D to detach from the
 
 ## TODO
 * Create a basic systemd service for the webapp role so screen isn't needed
+
+## Using this playbook with the GetGlass.io project
+* Run this command on a management node
+
+`awx project create --name scrutiny-playbook --scm_type="git" --scm_url="https://github.com/getglass/scrutiny-playbook.git" --scm_branch=main --description="GetGlass - Automatically stand up a Scrutiny installation"`
