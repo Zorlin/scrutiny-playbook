@@ -33,7 +33,7 @@ You can get the collector working on CentOS 8 by setting up GetPageSpeed Extras 
 ## Getting Started
 * Clone this repository somewhere handy
 
-`git clone https://github.com/Zorlin/scrutiny-playbook.git`
+`git clone https://github.com/getglass/scrutiny-playbook.git`
 
 * Generate an SSH key if you don't already have one
 
