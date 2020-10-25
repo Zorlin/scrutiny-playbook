@@ -73,6 +73,9 @@ You can then hold Ctrl and hit the letter A then the letter D to detach from the
 ## TODO
 * Create a basic systemd service for the webapp role so screen isn't needed
 
+* IDEA: Automatically detect and use the host in the [webapp] group as "webapp_server" instead of hardcoding it.
+`{{ groups['webapp'][0] }}`
+
 ## Using this playbook with the GetGlass.io project
 * Run these commands on a management node
 
