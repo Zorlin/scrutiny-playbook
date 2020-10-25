@@ -1,6 +1,5 @@
-
 ---
-# file: group_vars/collector
+# file: defaults/main.yml
 
 # Define which webapp server to point the collectors at
-#webapp_server: localhost
+webapp_server: localhost

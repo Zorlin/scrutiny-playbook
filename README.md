@@ -72,3 +72,15 @@ You can then hold Ctrl and hit the letter A then the letter D to detach from the
 
 ## TODO
 * Create a basic systemd service for the webapp role so screen isn't needed
+
+* IDEA: Automatically detect and use the host in the [webapp] group as "webapp_server" instead of hardcoding it.
+`{{ groups['webapp'][0] }}`
+
+## Using this playbook with the GetGlass.io project
+* Run these commands on a management node
+
+`awx project create --name scrutiny-playbook --scm_type="git" --scm_url="https://github.com/getglass/scrutiny-playbook.git" --scm_branch=main --description="GetGlass - Automatically stand up a Scrutiny installation"`
+
+`GLASS_PROJECTID=$(awx project list --name scrutiny-playbook --format json | jq .results[0].id)`
+
+`awx job_templates create --name "scrutiny-playbook run" --project $GLASS_PROJECTID --playbook "site.yml" --ask_inventory_on_launch true`
