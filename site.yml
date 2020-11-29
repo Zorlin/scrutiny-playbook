@@ -17,4 +17,8 @@
   become: yes
 
   roles:
-  - collector
+    - role: geerlingguy.repo-epel
+      when: ansible_os_family == 'RedHat'
+    - geerlingguy.git
+    - zorlin.smartmontools
+    - collector

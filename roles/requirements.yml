@@ -1,0 +1,6 @@
+---
+- name: geerlingguy.repo-epel
+- name: geerlingguy.git
+- name: zorlin.smartmontools
+  src: https://github.com/Zorlin/ansible-role-smartmontools
+  version: v0.1.0

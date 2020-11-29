@@ -5,14 +5,3 @@
   yum:
     name: crontabs
     state: present
-
-- name: Software - Install dependencies (CentOS 8+)
-  debug:
-    msg: "CentOS 8+ not yet supported. Please manually install smartmontools."
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version|int >= 8
-
-- name: Software - Install dependencies (CentOS 7)
-  yum:
-    name: smartmontools
-    state: present
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
