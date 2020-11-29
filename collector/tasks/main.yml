@@ -19,25 +19,25 @@
 # Binary (autodetects architecture)
 - name: Binary - Install the collector binary (amd64)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-collector-metrics-linux-amd64
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-collector-metrics-linux-amd64
     dest: /opt/scrutiny/bin/scrutiny-collector-metrics-linux
-    checksum: sha256:72c2b4c8d1c796c32c29217e3ac6268a8d61755800121a59b9d45ecfe8bf5746
+    checksum: sha256:5e44b663f4f78dd830611321d5497360a6e881bb0bcd491bbde0919b33081c58
     mode: '0755'
   when: ansible_architecture == "x86_64"
 
 - name: Binary - Install the collector binary (arm64)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-collector-metrics-linux-arm64
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-collector-metrics-linux-arm64
     dest: /opt/scrutiny/bin/scrutiny-collector-metrics-linux
-    checksum: sha256:a9c06d05408d912aaf50072c54a4c445525e7e356b71c7acb32797450f5c12d1
+    checksum: sha256:0f833a1b2ab43e489809e2bca69d9c739dd19c4b33ce115e675a485cd76b7900
     mode: '0755'
   when: ansible_architecture == "aarch64"
 
 - name: Binary - Install the collector binary (arm32)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-collector-metrics-linux-arm
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-collector-metrics-linux-arm-7
     dest: /opt/scrutiny/bin/scrutiny-collector-metrics-linux
-    checksum: sha256:f9d2e0d036104458a499e905596b0bda633a99733fa6883a41102b285cc7107d
+    checksum: sha256:7981b6abdfbe96dae7617fa2ef6f53a63ee37a0093a9f3455e91ce2cf8dc1d77
     mode: '0755'
   when: ansible_architecture == "armv7l"
 

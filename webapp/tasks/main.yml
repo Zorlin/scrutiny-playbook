@@ -29,32 +29,32 @@
 # Binary (autodetects architecture)
 - name: Binary - Install the webapp binary (amd64)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-web-linux-amd64
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-linux-amd64
     dest: /opt/scrutiny/bin/scrutiny-web-linux
-    checksum: sha256:7d1942616692f2bbc3ecda13ba246040b37195b2c9330c3a50f01f73a6bc61a0
+    checksum: sha256:56bf33666f0a5159913da019d6227f00206a97a56152f16f918606e7a7266c52
     mode: '0755'
   when: ansible_architecture == "x86_64"
 
 - name: Binary - Install the webapp binary (arm64)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-web-linux-arm64
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-linux-arm64
     dest: /opt/scrutiny/bin/scrutiny-web-linux
-    checksum: sha256:b120c17b5a6a3500cb93088d91bf3ceae0134a2b1119f85c6cd12b32dd193600
+    checksum: sha256:b6e2817a5619e66591da6f45894f8cc7d47b17c1475e82ddaadd1dc404e00f2b
     mode: '0755'
   when: ansible_architecture == "aarch64"
 
 - name: Binary - Install the webapp binary (arm32)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-web-linux-arm
+    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-linux-arm-7
     dest: /opt/scrutiny/bin/scrutiny-web-linux
-    checksum: sha256:d060a8cb9c06515b09777cb61b7856285c6f50848803da9be0497031584010cf
+    checksum: sha256:30c61f1bed84ac733e186bfe660eb62757191e77686eb2b132e29afa49d69e5a
     mode: '0755'
   when: ansible_architecture == "armv7l"
 
 # Frontend
 - name: Frontend - Download and install the frontend files
   unarchive:
-    src: https://github.com/AnalogJ/scrutiny/releases/download/0.3.1/scrutiny-web-frontend.tar.gz
+    src: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-frontend.tar.gz
     dest: /opt/scrutiny/web
     remote_src: yes
     extra_opts: "--strip-components=1"
