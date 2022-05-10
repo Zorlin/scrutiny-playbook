@@ -72,15 +72,3 @@ ok: [example.com] => {
 
 ## Credits
 scrutiny-playbook was created in 2020 by [Benjamin Arntzen](https://github.com/Zorlin).
-
-## TODOs and old notes
-* Create a basic systemd service for the webapp role so screen isn't needed
-
-* IDEA: Automatically detect and use the host in the [webapp] group as "webapp_server" instead of hardcoding it.
-`{{ groups['webapp'][0] }}`
-
-Once you're up and running, go to your webapp machine, run screen, then run the Scrutiny webapp with the following command.
-
-`/opt/scrutiny/bin/scrutiny-web-linux start --config /opt/scrutiny/config/scrutiny.yaml`
-
-You can then hold Ctrl and hit the letter A then the letter D to detach from the session and leave the webapp running.

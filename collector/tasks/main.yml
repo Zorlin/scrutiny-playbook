@@ -1,6 +1,9 @@
 ---
 # Name: Install and configure the collector
 
+# I pick things up / I am a collector
+# And things, well things / They tend to accumulate
+
 # Dependencies
 # Ubuntu/Debian are the same for this role.
 - include_tasks: debian.yml
@@ -39,9 +42,9 @@
   when: ansible_architecture == "armv7l"
 
 # Cron
-# - name: Cron - Create a root crontab entry to run the collector periodically
-#   cron:
-#     name: "Scrutiny - Run the Collector"
-#     minute: "*/15"
-#     job: . /etc/profile; /opt/scrutiny/bin/scrutiny-collector-metrics-linux run --api-endpoint "http://{{ webapp_server }}:8080"
-#     user: root
+- name: Cron - Create a root crontab entry to run the collector periodically
+  cron:
+    name: "Scrutiny - Run the Collector"
+    minute: "*/15"
+    job: . /etc/profile; /opt/scrutiny/bin/scrutiny-collector-metrics-linux run --api-endpoint "http://{{ groups['scrutiny_web'][0] }}:8080"
+    user: root
