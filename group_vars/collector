@@ -1,6 +1,0 @@
-
----
-# file: group_vars/collector
-
-# Define which webapp server to point the collectors at
-#webapp_server: localhost

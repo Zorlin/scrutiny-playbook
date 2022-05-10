@@ -1,20 +1,20 @@
 ---
 # file: site.yml
 
-# This playbook attempts to configure and setup Scrutiny
-# Put your webapp host in [webapp]
-# and your collector hosts in [collector]
+- hosts: scrutiny_web
+  become: true
 
-- hosts: webapp
-  remote_user: root
-  become: yes
+  vars_files:
+    - vars/settings.yml
 
   roles:
   - webapp
 
-- hosts: collector
-  remote_user: root
-  become: yes
+- hosts: scrutiny_collector
+  become: true
+
+  vars_files:
+    - vars/settings.yml
 
   roles:
     - role: geerlingguy.repo-epel
@@ -22,3 +22,9 @@
     - geerlingguy.git
     - zorlin.smartmontools
     - collector
+
+  tasks:
+    - debug:
+        msg:
+          - "If you're reading this, Scrutiny has been successfully deployed."
+          - "Let us know if it worked, and feel free to reach out if you need help. Enjoy!"

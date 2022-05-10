@@ -1,0 +1,13 @@
+[Unit]
+Description=Scrutiny Web daemon
+
+[Service]
+ExecStart=/opt/scrutiny/bin/scrutiny-web-linux start \
+  --config /opt/scrutiny/config/scrutiny.yaml
+Restart=always
+User=scrutiny
+Group=scrutiny
+
+[Install]
+WantedBy=multi-user.target
+Alias=scrutiny-web.service

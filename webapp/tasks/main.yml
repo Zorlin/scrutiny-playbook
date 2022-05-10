@@ -9,52 +9,78 @@
 - include_tasks: centos.yml
   when: ansible_distribution == 'CentOS'
 
+# User
+- name: Create a Scrutiny user
+  user:
+    name: scrutiny
+    home: /opt/scrutiny
+    shell: /bin/bash
+    state: present
+
 # Directory structure
 - name: Files - Create a directory to hold Scrutiny-related stuff
   file: path=/opt/scrutiny state=directory
 
 - name: Files - Create a configuration directory
-  file: path=/opt/scrutiny/config state=directory
+  file: path=/opt/scrutiny/config state=directory owner=scrutiny group=scrutiny
 
 - name: Files - Create a directory to store the webapp
-  file: path=/opt/scrutiny/web state=directory
+  file: path=/opt/scrutiny/web state=directory owner=scrutiny group=scrutiny
 
 - name: Files - Create a directory to store binaries
-  file: path=/opt/scrutiny/bin state=directory
+  file: path=/opt/scrutiny/bin state=directory owner=scrutiny group=scrutiny
 
 # Configuration
 - name: Configuration - configure scrutiny
-  template: src=scrutiny.yaml.j2 dest=/opt/scrutiny/config/scrutiny.yaml mode=0644
+  template: src=scrutiny.yaml.j2 dest=/opt/scrutiny/config/scrutiny.yaml mode=0644 owner=scrutiny group=scrutiny
 
 # Binary (autodetects architecture)
 - name: Binary - Install the webapp binary (amd64)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-linux-amd64
+    url: https://github.com/AnalogJ/scrutiny/releases/download/{{ scrutiny_version }}/scrutiny-web-linux-amd64
     dest: /opt/scrutiny/bin/scrutiny-web-linux
-    checksum: sha256:56bf33666f0a5159913da019d6227f00206a97a56152f16f918606e7a7266c52
     mode: '0755'
+    timeout: 30
   when: ansible_architecture == "x86_64"
 
 - name: Binary - Install the webapp binary (arm64)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-linux-arm64
+    url: https://github.com/AnalogJ/scrutiny/releases/download/{{ scrutiny_version }}/scrutiny-web-linux-arm64
     dest: /opt/scrutiny/bin/scrutiny-web-linux
-    checksum: sha256:b6e2817a5619e66591da6f45894f8cc7d47b17c1475e82ddaadd1dc404e00f2b
     mode: '0755'
+    timeout: 30
   when: ansible_architecture == "aarch64"
 
 - name: Binary - Install the webapp binary (arm32)
   get_url:
-    url: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-linux-arm-7
+    url: https://github.com/AnalogJ/scrutiny/releases/download/{{ scrutiny_version }}/scrutiny-web-linux-arm-7
     dest: /opt/scrutiny/bin/scrutiny-web-linux
-    checksum: sha256:30c61f1bed84ac733e186bfe660eb62757191e77686eb2b132e29afa49d69e5a
     mode: '0755'
+    timeout: 30
   when: ansible_architecture == "armv7l"
 
 # Frontend
 - name: Frontend - Download and install the frontend files
   unarchive:
-    src: https://github.com/AnalogJ/scrutiny/releases/download/0.3.5/scrutiny-web-frontend.tar.gz
+    src: https://github.com/AnalogJ/scrutiny/releases/download/{{ scrutiny_version }}/scrutiny-web-frontend.tar.gz
     dest: /opt/scrutiny/web
     remote_src: yes
     extra_opts: "--strip-components=1"
+
+# Service
+- name: systemd - Create scrutiny-web service
+  template:
+    src: scrutiny-web.service
+    dest: /etc/systemd/system/scrutiny-web.service
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Reload systemd
+  systemd: 
+    daemon_reload: true
+
+- name: Start scrutiny-web service
+  systemd:
+    name: scrutiny-web
+    state: started

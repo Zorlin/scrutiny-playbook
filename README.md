@@ -1,78 +1,86 @@
 # scrutiny-playbook
 
-This project aims to help you set up [Scrutiny](https://github.com/AnalogJ/scrutiny) as automatically as possible.
+This is an Ansible-based installer for [Scrutiny](https://github.com/AnalogJ/scrutiny), allowing you to monitor SMART data for a fleet of machines, large or small, and have some idea of when drives are experiencing issues.
 
 It supports both all-in-one and hub-and-spoke deployments, and most popular architectures (amd64, arm64, arm).
 
-## Caveats
-First off, this playbook is somewhat experimental, but *should* be safe.
-
-Scrutiny itself is also quite a young project.
-
 ## Requirements
-First off, you'll need to install a modern version of Ansible onto a machine of your choosing.
+You'll need the following:
 
-The version included in Debian 10+, Ubuntu 18.04+ or CentOS 7+ should work fine.
+* A computer with a modern version of Ansible installed. The version included in Debian 11, Ubuntu 22.04 or CentOS 7+ should work fine.
+* One machine to act in the "hub"/"web" role.
+* One or many machines to monitor.
 
-Ansible only needs to be installed on the machine you want to use to manage the deployment.
-
-Both roles will work on pretty much any recent version of Linux. Currently they officially support:
+For both the collector role and the web (hub) role, the following operating systems are supported:
 
 * Debian 9 or above
 * Ubuntu 18.04 or above
 * CentOS 7 or above
 
 ## Getting Started
-* Clone this repository somewhere handy
+* Check out a copy of this repository.
 
-`git clone https://github.com/getglass/scrutiny-playbook.git`
+```
+git clone https://github.com/getglass/scrutiny-playbook.git
+cd scrutiny-playbook
+```
 
-* Generate an SSH key if you don't already have one
+* Generate an SSH key if you don't already have one.
 
 `ssh-keygen`
 
-* Copy your key to user "root" on all the boxes you want to manage (replace localhost with the machine you want)
+* Copy your SSH key to the servers you want to manage (replace example-host with your server's address).
 
-`ssh-copy-id root@localhost`
+`ssh-copy-id example-host`
 
-* Edit the `inventory` file. You will want to pick one machine to be the "hub" and place it in the "webapp" section, and then list all the machines you wish to run collectors on in the "collector" section. For a single machine, simply put the machine once in both sections.
+* Edit the `inventory` file. Place one machine in the "scrutiny_web" section, then list all the machines you wish to run collectors on in the "scrutiny_collector" section. For a single machine, simply put the same machine into both sections.
 
-  Here's an example:
+Here's an example:
 ```
-[webapp]
-10.1.1.201
+[scrutiny_web]
+blinky.windowpa.in
 
-[collector]
-10.1.1.201
-10.1.1.202
-10.1.1.203
-10.1.1.204
+[scrutiny_collector]
+blinky.windowpa.in
+pinky.windowpa.in
+inky.windowpa.in
 ```
 
-* If you want a hub-and-spoke deployment, you will also need to edit the address that collectors will send their data to.
-  Open up group_vars/collector and set "webapp_server" as appropriate.
+* Install Ansible Galaxy roles needed to run the playbook:
 
-* Install the required roles and do an Ansible run.
+`ansible-galaxy install -r roles/requirements.yml`
 
-`ansible-galaxy install -r roles/requirements.yml && ansible-playbook site.yml`
+* Now you're ready to rock! Run Ansible and watch as it sets up your disk monitoring solution.
+
+`ansible-playbook site.yml`
+
+* If the user you are connecting as requires a sudo password, run this command insatead.
+
+`ansible-playbook site.yml --ask-sudo-pass`
+
+* You should see a message like this once Ansible finishes, indicating a successful run:
+
+```
+TASK [Success!] **********************************************************************************************
+ok: [example.com] => {
+    "msg": [
+        "If you're reading this, Scrutiny has been successfully deployed.",
+        "Let us know if it worked, and feel free to reach out if you need help. Enjoy!"
+    ]
+}
+```
+
+## Credits
+scrutiny-playbook was created in 2020 by [Benjamin Arntzen](https://github.com/Zorlin).
+
+## TODOs and old notes
+* Create a basic systemd service for the webapp role so screen isn't needed
+
+* IDEA: Automatically detect and use the host in the [webapp] group as "webapp_server" instead of hardcoding it.
+`{{ groups['webapp'][0] }}`
 
 Once you're up and running, go to your webapp machine, run screen, then run the Scrutiny webapp with the following command.
 
 `/opt/scrutiny/bin/scrutiny-web-linux start --config /opt/scrutiny/config/scrutiny.yaml`
 
 You can then hold Ctrl and hit the letter A then the letter D to detach from the session and leave the webapp running.
-
-## TODOs
-* Create a basic systemd service for the webapp role so screen isn't needed
-
-* IDEA: Automatically detect and use the host in the [webapp] group as "webapp_server" instead of hardcoding it.
-`{{ groups['webapp'][0] }}`
-
-## Using this playbook with the GetGlass.io project
-* Run these commands on a management node
-
-`awx project create --name scrutiny-playbook --scm_type="git" --scm_url="https://github.com/getglass/scrutiny-playbook.git" --scm_branch=main --description="GetGlass - Automatically stand up a Scrutiny installation"`
-
-`GLASS_PROJECTID=$(awx project list --name scrutiny-playbook --format json | jq .results[0].id)`
-
-`awx job_templates create --name "scrutiny-playbook run" --project $GLASS_PROJECTID --playbook "site.yml" --ask_inventory_on_launch true`

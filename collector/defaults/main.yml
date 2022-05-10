@@ -1,5 +1,0 @@
----
-# file: defaults/main.yml
-
-# Define which webapp server to point the collectors at
-webapp_server: localhost

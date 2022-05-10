@@ -1,5 +1,7 @@
-[webapp]
-localhost
+[scrutiny_web]
+scrutiny01.windowpa.in
 
-[collector]
-localhost
+[scrutiny_collector]
+blinky.windowpa.in
+pinky.windowpa.in
+inky.windowpa.in
