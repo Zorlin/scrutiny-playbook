@@ -1,3 +1,6 @@
 ---
 # Settings for scrutiny
 scrutiny_version: "v0.4.1"
+
+# Settings for influxDB
+influxdb_skip_onboarding: true

@@ -3,4 +3,6 @@
 - name: geerlingguy.git
 - name: zorlin.smartmontools
   src: https://github.com/Zorlin/ansible-role-smartmontools
-  version: v0.1.0
+  version: v0.2.0
+#- name: buluma.influxdb2
+- name: zorlin.influxdb2

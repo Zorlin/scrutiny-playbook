@@ -8,6 +8,8 @@
     - vars/settings.yml
 
   roles:
+  #- buluma.influxdb2
+  - zorlin.influxdb2
   - webapp
 
 - hosts: scrutiny_collector
