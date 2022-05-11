@@ -17,6 +17,9 @@ For both the collector role and the web (hub) role, the following operating syst
 * Ubuntu 18.04 or above
 * CentOS 7 or above
 
+## Demo
+[![asciicast](https://asciinema.org/a/493531.svg)](https://asciinema.org/a/493531)
+
 ## Getting Started
 * Check out a copy of this repository.
 
