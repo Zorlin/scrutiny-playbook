@@ -4,8 +4,6 @@ This is an Ansible-based installer for [Scrutiny](https://github.com/AnalogJ/scr
 
 It supports both all-in-one and hub-and-spoke deployments, and most popular architectures (amd64, arm64, arm).
 
-[![asciicast](https://asciinema.org/a/493531.svg)](https://asciinema.org/a/493531)
-
 ## Requirements
 You'll need the following:
 
@@ -18,6 +16,9 @@ For both the collector role and the web (hub) role, the following operating syst
 * Debian 9 or above
 * Ubuntu 18.04 or above
 * CentOS 7 or above
+
+## Demo
+[![asciicast](https://asciinema.org/a/493531.svg)](https://asciinema.org/a/493531)
 
 ## Getting Started
 * Check out a copy of this repository.
