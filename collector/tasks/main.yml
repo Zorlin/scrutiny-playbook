@@ -45,6 +45,7 @@
 - name: Cron - Create a root crontab entry to run the collector periodically
   cron:
     name: "Scrutiny - Run the Collector"
-    minute: "*/15"
+    minute: "0"
+    hour: "1"
     job: . /etc/profile; /opt/scrutiny/bin/scrutiny-collector-metrics-linux run --api-endpoint "http://{{ groups['scrutiny_web'][0] }}:8080"
     user: root
